@@ -1,0 +1,22 @@
+---
+- hosts: {{ host }}
+  tasks:
+  - name: Install Depencies
+    yum: name={{ item }} state=present
+    with_items:
+      - openssl-devel
+      - openssl
+      - libffi-devel
+      - MySQL-python
+      - mysql-devel
+
+  - name: Download Python3
+    command: wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+
+  - name: Extract Python3
+    command: tar -zxvf Python-3.7.2.tgz
+
+  - name: Install Python3
+    command: cd Python-3.7.2 && ./configure && make -j 8 && make install
+
+
