@@ -6,5 +6,5 @@
 ## 
 - centos7 一键安装python3.7环境 
     ```shell
-      ansible centos4Py3.yaml -e "host=xxxx"
+      ansible centos4Py3.yaml -e "host=xxxx" -u root
     ```

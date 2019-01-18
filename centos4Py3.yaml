@@ -1,5 +1,5 @@
 ---
-- hosts: {{ host }}
+- hosts: "{{ host }}"
   tasks:
   - name: Install Depencies
     yum: name={{ item }} state=present
@@ -17,6 +17,15 @@
     command: tar -zxvf Python-3.7.2.tgz
 
   - name: Install Python3
-    command: cd Python-3.7.2 && ./configure && make -j 8 && make install
-
+    command: "{{ item }} chdir=/root/Python-3.7.2/"
+    with_items:
+        - ./configure
+        - make -j 8
+        - make install
+  
+  - name: clean Up
+    command: "{{item}} chdir=/root/"
+    with_items:
+        - rm -f Python-3.7.2.tgz
+        - rm -rf Python-3.7.2
 
