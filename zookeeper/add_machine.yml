@@ -1,0 +1,28 @@
+---
+- hosts: "{{ host }}"
+  become: yes
+  tasks:
+  - name: Install Java
+    yum: name={{ item }} state=present
+    with_items:
+    - java-1.8.0-openjdk*
+
+  - name: Download zookeeper
+    command: wget http://apache.mirrors.ionfish.org/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz
+
+  - name: Extract zookeeper
+    command: "{{ item }}"
+    with_items:
+      - mkdir -p /opt/bigdata
+      - tar zxvf /root/zookeeper-3.4.13.tar.gz -C /opt/bigdata
+      - mv /opt/bigdata/zookeeper-3.4.13 /opt/bigdata/zookeeper
+      - rm -rf /root/zookeeper-3.4.13.tar.gz
+
+  - name: Generate data directory
+    command: mkdir -p /opt/bigdata/zookeeper/data
+
+  - name: assign a server id
+    copy:
+      content: "{{ id }}"
+      dest: "/opt/bigdata/zookeeper/data/myid"
+

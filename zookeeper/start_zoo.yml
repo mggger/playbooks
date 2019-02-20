@@ -1,0 +1,17 @@
+---
+- hosts: zoo
+  become: yes
+  tasks:
+    - name: Copy configure
+      copy:
+        src: "{{ zoo_cfg }}"
+        dest: /opt/bigdata/zookeeper/conf
+
+
+    - name: start Service
+      command: "{{ item }}"
+      with_items:
+        - sh /opt/bigdata/zookeeper/bin/zkServer.sh restart
+
+
+
