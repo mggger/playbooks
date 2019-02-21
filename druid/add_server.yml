@@ -35,7 +35,7 @@
         - sdata
 
     - name: start query server
-      shell: nohup /opt/bigdata/imply/bin/supervise -c /opt/bigdata/imply/conf/supervise/query.conf
+      shell: /opt/bigdata/imply/bin/supervise -c /opt/bigdata/imply/conf/supervise/query.conf
       async: 999999999
       poll: 0
       tags:
