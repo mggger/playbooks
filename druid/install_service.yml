@@ -1,0 +1,37 @@
+---
+-
+  hosts: "{{ host }}"
+  tasks:
+    - name: Install dependency
+      yum: name={{ item }} state=present
+      with_items:
+          - perl
+
+    - name: Install imply
+      get_url:
+        url: https://static.imply.io/release/imply-2.8.14.tar.gz
+        dest: /root
+
+    - name: Assign directory
+      file:
+        path: /opt/bigdata
+        state: directory
+
+    - name: Extract
+      unarchive:
+        src: /root/imply-2.8.14.tar.gz
+        dest: /opt/bigdata
+        remote_src: true
+
+    - name: stat imply
+      stat: path=/opt/bigdata/imply-2.8.14
+      register: imply_stat
+
+    - name: rename
+      command: mv /opt/bigdata/imply-2.8.14  /opt/bigdata/imply
+      when: imply_stat.stat.exists
+
+    - name: clean tar
+      file:
+        state: absent
+        path: /root/imply-2.8.14.tar.gz

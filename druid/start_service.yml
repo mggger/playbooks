@@ -1,0 +1,41 @@
+---
+- hosts: "{{ host }}"
+  tasks:
+    - name: Copy conf
+      copy:
+        src: "{{conf_dir}}/"
+        dest: /opt/bigdata/imply/conf
+      tags:
+        - cc
+
+    - name: start master
+      shell: /opt/bigdata/imply/bin/supervise -c /opt/bigdata/imply/conf/supervise/master-no-zk.conf --daemon
+      tags:
+        - sm
+
+    - name: start data server
+      shell: /opt/bigdata/imply/bin/supervise -c /opt/bigdata/imply/conf/supervise/data.conf --daemon
+      tags:
+        - sd
+
+    - name: start query server
+      shell: /opt/bigdata/imply/bin/supervise -c /opt/bigdata/imply/conf/supervise/query.conf --daemon
+      tags:
+        - sq
+
+    - name: down service
+      shell: /opt/bigdata/imply/bin/service --down
+      tags:
+        - ds
+
+
+
+
+
+
+
+
+
+
+
+

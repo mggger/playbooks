@@ -15,22 +15,20 @@
     - Imply UI 9095
 
 ### How to run 
-**需指定host和配置文件夹**
-1. 启动master 
+1. Install service
 ```shell
-ansible-playbook --skip-tags sdata,squery add_server.yml -e "host=druid_master conf_dir=/Users/home/git/playbooks/druid/conf" -u root
-```    
-
-2. 启动data server
-```shell
-ansible-playbook --skip-tags smaster,squery add_server.yml -e "host=druid_d_01 conf_dir=/Users/home/git/playbooks/druid/conf" -u root
+ ansible-playbook install_service.yml -e "host=xxxxx" -u root
 ```
 
-3. 启动query server
+2. Start service 需要指定host和conf_dir
+tags对应的服务为:
+    - cc copy conf
+    - sm start master
+    - sd start data server
+    - sq start query server
+示例：
+
+
 ```shell
-ansible-playbook --skip-tags smaster,sdata add_server.yml -e "host=druid_q_01 conf_dir=/Users/home/git/playbooks/druid/conf" -u root
+ ansible-playbook --tags=cc, sd start_service.yml -e "host=druid_d_01 conf_dir=/Users/home/git/ansible-playbook/conf" -u root
 ```
-
-
-#### 检测服务是否启动成功
-ansible zoo -m shell -a "jps" -u root
