@@ -26,9 +26,8 @@ tags对应的服务为:
     - sm start master
     - sd start data server
     - sq start query server
-示例：
 
-
+示例： 复制配置， 启动data server
 ```shell
  ansible-playbook --tags=cc, sd start_service.yml -e "host=druid_d_01 conf_dir=/Users/home/git/ansible-playbook/conf" -u root
 ```
