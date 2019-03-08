@@ -6,11 +6,11 @@
     - coordinator     8081
     - overload node   8090
     
-2.  data server  随着数据聚合的任务数递增 可以通过增加data server来解决
+2.  data server  
     - Druid Middle Manager 8091
     - Druid Historical     8083
     
-3.  query server 随着query请求数递增， 可以通过增加queyr server来解决
+3.  query server
     - Broker 8082
     - Imply UI 9095
 
