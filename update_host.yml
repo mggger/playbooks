@@ -1,6 +1,8 @@
 ---
 - name: host file update - Local DSN setup across all the servers
-  hosts: " {{ group }}"
+  hosts: " {{ group }} "
+  vars: 
+    group: " {{ group }} "
   tasks:
     - name: update the /etc/hosts file with node name
       become: yes
@@ -11,4 +13,4 @@
         line: "{{ hostvars[item]['ansible_env'].SSH_CONNECTION.split(' ')[2] }}\t{{ hostvars[item]['ansible_hostname'] }}"
         state: present
       when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
-      with_items: "{{groups['zoo']}}"
+      with_items: "{{groups[group]}}"
