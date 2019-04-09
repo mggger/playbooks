@@ -20,7 +20,7 @@ ansible-playbook add_machine.yml -e "host=xxxx id=x"  -u root
 
 2. 所有的机器， 请确保在/etc/ansible/hosts 添加[zoo]和相关的机器ip, 需指定zookeeper的配置
 ```shell
-ansible-playbook start_zoo.yml -e "zoo_cfg=/Users/home/git/playbooks/zookeeper/zoo.cfg" -u root
+ansible-playbook start_zoo.yml -e "zoo_cfg=/Users/home/git/playbooks/zookeeper/zoo.cfg group=xxxx" -u root
 ``` 
 
 
